@@ -1,6 +1,6 @@
 namespace _2.Models;
 
-public class Task
+public class TaskTODO
 {
     public int id { get; set; }
 
@@ -8,7 +8,7 @@ public class Task
 
     public bool wasDone { get; set; }
 
-    public Task(int id, string name, bool wasDone){
+    public TaskTODO(int id, string name, bool wasDone){
         this.id = id;
         this.name = name;
         this.wasDone = wasDone;

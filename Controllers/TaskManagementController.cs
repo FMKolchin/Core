@@ -1,41 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
-using _2.Services;
-using Task = _2.Models.Task;
+using _2.Interfaces;
+using TaskTODO = _2.Models.TaskTODO;
 namespace _2.Controllers
 {
 [ApiController]
 [Route("[controller]")]
 public class TaskManagementController : ControllerBase
 {
+    private ITaskService taskService;
+    public TaskManagementController(ITaskService taskService){
+        this.taskService = taskService;
+    }
 
     [HttpGet]
-    public List<Task> Get()
+    public List<TaskTODO> Get()
     {
-        return TaskService.Get();
+        return taskService.Get();
     }
     [HttpGet("{id}")]
-    public ActionResult<Task> Get(int id)
+    public ActionResult<TaskTODO> Get(int id)
     {
-        var task = TaskService.Get(id);
+        var task = taskService.Get(id);
         if (task == null)
             return NotFound();
         return task;
     }
     [HttpPost]
-    public ActionResult Post(Task task){
-        TaskService.Post(task);
+    public ActionResult Post(TaskTODO task){
+        taskService.Post(task);
         return CreatedAtAction(nameof(Post),new {id = task.id},task);
     }
     [HttpPut("{id}")]
-    public ActionResult Put(int id, Task task){
-       if(! TaskService.Put(id,task))
+    public ActionResult Put(int id, TaskTODO task){
+       if(! taskService.Put(id,task))
             return BadRequest();
          return NoContent();
        
     }
     [HttpDelete("{id}")]
     public ActionResult Delete(int id){
-        if(! TaskService.Delete(id)){
+        if(! taskService.Delete(id)){
             return NotFound();
 
         }
