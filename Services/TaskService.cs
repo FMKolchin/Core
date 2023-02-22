@@ -15,11 +15,7 @@ private List<TaskTODO> tasks = new List<TaskTODO>(){
     new TaskTODO(5,"ללכת לחוג התעמלות",false),
     new TaskTODO(6,"ללוות את שפרה לתחנה",true)
 };
-// private ITaskService taskService;
 
-// public TaskService(ITaskService service){
-//     this.taskService = service;
-// }
 
 public List<TaskTODO> Get()
 {
