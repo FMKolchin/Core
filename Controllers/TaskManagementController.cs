@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using _2.Interfaces;
-using TaskTODO = _2.Models.TaskTODO;
-namespace _2.Controllers
+using _4.Interfaces;
+using TaskTODO = _4.Models.TaskTODO;
+namespace _4.Controllers
 {
 [ApiController]
 [Route("[controller]")]
@@ -28,7 +28,7 @@ public class TaskManagementController : ControllerBase
     [HttpPost]
     public ActionResult Post(TaskTODO task){
         taskService.Post(task);
-        return CreatedAtAction(nameof(Post),new {id = task.id},task);
+        return CreatedAtAction(nameof(Post),new {id = task.Id},task);
     }
     [HttpPut("{id}")]
     public ActionResult Put(int id, TaskTODO task){

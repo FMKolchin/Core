@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="taskManagement.css" />
+</head>
+
+<body>
+    <h1>Task Management</h1>
+    <h3>Add Task</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="addTasks()">
+        <input type="text" id="add-description" placeholder="New Task">
+        <input type="submit" value="Add">
+    </form>
+
+    <div id="editForm">
+        <h3>Edit</h3>
+        <form action="javascript:void(0);" onsubmit="updateTask()">
+            <input type="hidden" id="edit-id">
+            <input type="checkbox" id="edit-status">
+            <input type="text" id="edit-description">
+            <input type="submit" value="Save">
+            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+        </form>
+    </div>
+    
+    <p id="counter"></p>
+
+    <table>
+        <tr>
+            <th>wad done?</th>
+            <th>description</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tbody id="tasks"></tbody>
+    </table>
+
+
+    <script src="taskManagement.js" asp-append-version="true"></script>
+    <script type="text/javascript">getTasks();</script>
+</body>
+
+</html>

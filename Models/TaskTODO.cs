@@ -1,16 +1,18 @@
-namespace _2.Models;
+namespace _4.Models;
 
 public class TaskTODO
 {
-    public int id { get; set; }
+    public int Id { get; set; }
 
-    public string name { get; set; }
+    public string Description { get; set; }
 
-    public bool wasDone { get; set; }
+    public bool Status { get; set; }
 
-    public TaskTODO(int id, string name, bool wasDone){
-        this.id = id;
-        this.name = name;
-        this.wasDone = wasDone;
-    }
+    // public TaskTODO(int id, string description, bool status){
+    //     this.Id = id;
+    //     this.Description = description;
+    //     this.Status = status;
+    // }
+
+
 }

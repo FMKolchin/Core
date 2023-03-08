@@ -1,4 +1,4 @@
-using _2.Utilities;
+using _4.Utilities;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,6 +18,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
