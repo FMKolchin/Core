@@ -1,0 +1,3 @@
+# Core
+core home work...
+this is a project I'm working on duing the core lessons
