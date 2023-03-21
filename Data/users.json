@@ -1,0 +1,7 @@
+[
+    {"Id":"1","UserName":"FM","Password":"fM&!","Classification":"Admin"},
+    {"Id":"2","UserName":"ST","Password":"C7867&67","Classification":"Agent"},
+    {"Id":"3","UserName":"Nechama","Password":"NAMCHjky7","Classification":"Agent"},
+    {"Id":"4","UserName":"Boaz","Password":"R&880","Classification":"Agent"},
+    {"Id":"5","UserName":"Chaim","Password":"CH789","Classification":"Agent"}
+]

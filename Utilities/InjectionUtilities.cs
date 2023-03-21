@@ -7,5 +7,9 @@ public static class InjectionUtilities{
     public static void AddTasks(this IServiceCollection service){
             service.AddSingleton<ITaskService, TaskService>();
     }
+     public static void AddUsers(this IServiceCollection service){
+            service.AddSingleton<IUserService, UserService>();
+    }
+
 }
 }

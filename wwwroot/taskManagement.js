@@ -3,7 +3,7 @@ const uri = "/TaskManagement";
 let tasks = [];
 
 function getTasks() {
-    fetch(uri)
+    fetch(uri+"/GetUser")
         .then(response => response.json())
         .then(data => {_displayTasks(data); })
         .catch(error => console.error('Unable to get items.', error));

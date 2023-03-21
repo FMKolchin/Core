@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using _4.Interfaces;
-using TaskTODO = _4.Models.TaskTODO;
+using _4.Models;
+using Microsoft.AspNetCore.Authorization;
+
 namespace _4.Controllers
 {
 [ApiController]
@@ -13,32 +15,39 @@ public class TaskManagementController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = "Admin")]
     public List<TaskTODO> Get()
     {
         return taskService.Get();
     }
-    [HttpGet("{id}")]
-    public ActionResult<TaskTODO> Get(int id)
+    [Route("GetUser")]
+    [HttpGet]
+    [Authorize(Policy = "Agent")]
+    public ActionResult<List<TaskTODO>> GetUser()
     {
-        var task = taskService.Get(id);
+        string? token = HttpContext.Request.Headers["Authorization"]; 
+        var task = taskService.Get(token!);
         if (task == null)
             return NotFound();
         return task;
     }
     [HttpPost]
+     [Authorize(Policy = "Agent")]
     public ActionResult Post(TaskTODO task){
         taskService.Post(task);
         return CreatedAtAction(nameof(Post),new {id = task.Id},task);
     }
     [HttpPut("{id}")]
-    public ActionResult Put(int id, TaskTODO task){
+     [Authorize(Policy = "Agent")]
+    public ActionResult Put(string id, TaskTODO task){
        if(! taskService.Put(id,task))
             return BadRequest();
          return NoContent();
        
     }
     [HttpDelete("{id}")]
-    public ActionResult Delete(int id){
+     [Authorize(Policy = "Agent")]
+    public ActionResult Delete(string id){
         if(! taskService.Delete(id)){
             return NotFound();
 
