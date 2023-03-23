@@ -47,6 +47,7 @@ builder.Services.AddEndpointsApiExplorer();
  builder.Services.AddSwaggerGen();
 builder.Services.AddTasks();
 builder.Services.AddUsers();
+builder.Services.AddLogService();
 
 var app = builder.Build();
 
@@ -56,6 +57,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseLogMiddleware();
 
 app.UseDefaultFiles();
 

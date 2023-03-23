@@ -10,6 +10,11 @@ public static class InjectionUtilities{
      public static void AddUsers(this IServiceCollection service){
             service.AddSingleton<IUserService, UserService>();
     }
+    public static void AddLogService(this IServiceCollection service){
+        service.AddTransient<ILogService, LogService>();
+    }
+
+  
 
 }
 }
