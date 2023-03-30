@@ -1,10 +1,10 @@
 # Core
 .net project
-Task management system
-Server - .net core - web api
-Client side - JS
-Authentication and authorization, retrieval from JSON instead of DB using DEPENDENCY INJECTION so that the exchange to DB is simple
-Using the bootstarp library for styling
+Task management system.
+Server - .net core - web api.
+Client side - JS.
+Authentication and authorization, retrieval from JSON instead of DB using DEPENDENCY INJECTION so that the exchange to DB is simple.
+Using the bootstarp library for styling.
 
 
 
