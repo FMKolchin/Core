@@ -1,11 +1,11 @@
 # Core
 .net project
-מערכת לניהול משימות
-server - .net core (web api)
-client - js
-אוטנטיקציה ואוטוריזציה, שליפה מ JSON במקום מ DB שימוש ב DEPENDENCY INJECTION כדי שההחלפה ל DB תהיה פשוטה
-שימוש בספרית bootstarp לצורך עיצוב
+Task management system
+Server - .net core - web api
+Client side - JS
+Authentication and authorization, retrieval from JSON instead of DB using DEPENDENCY INJECTION so that the exchange to DB is simple
+Using the bootstarp library for styling
 
 
 
-הפרויקט לא גמור לחלוטין - טרם היה תאריך ההגשה, חסר מעט מהקלינט
+The project is not completely finished - there was no submission date yet, the client is missing a bit
