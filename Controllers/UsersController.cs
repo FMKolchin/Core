@@ -19,7 +19,7 @@ public class UsersController : ControllerBase
     }
     [HttpPost]
     [Route("[action]")]
-        public ActionResult<String> Login([FromBody] User User)
+        public ActionResult<String> Login(User User)
         {
             User? authUser = userService.Login(User);
             if (authUser==null)
@@ -36,7 +36,11 @@ public class UsersController : ControllerBase
             };
 
             var token = TokenService.GetToken(claims);
-            return new OkObjectResult(TokenService.WriteToken(token));
+            return new OkObjectResult(
+                new {token=TokenService.WriteToken(token),
+                user = authUser.Id,
+                classification = authUser.Classification}
+                );
         }
 
 
@@ -49,7 +53,7 @@ public class UsersController : ControllerBase
     }
     [HttpGet]
     [Route("GetUser")]
-     [Authorize(Policy = "Agent")]
+    [Authorize(Policy = "Agent")]
     public ActionResult<User> GetUser()
     {
         string? token = HttpContext.Request.Headers["Authorization"]; 
@@ -62,6 +66,7 @@ public class UsersController : ControllerBase
     [Authorize(Policy = "Admin")]
     [HttpPost]
     public ActionResult Post(User user){
+        System.Console.WriteLine(user.Id);
         userService.Post(user);
         return CreatedAtAction(nameof(Post),new {id = user.Id},user);
     }
@@ -73,11 +78,11 @@ public class UsersController : ControllerBase
          return NoContent();
        
     }
-    [HttpDelete]
+    [HttpDelete("{id}")]
      [Authorize(Policy = "Agent")]
-    public ActionResult Delete(){
-        string? token = HttpContext.Request.Headers["Authorization"]; 
-        string id = TokenService.DecodeToken(token!);
+    public ActionResult Delete(string id){
+        // string? token = HttpContext.Request.Headers["Authorization"]; 
+        // string id = TokenService.DecodeToken(token!);
         if(! userService.Delete(id)){
             return NotFound();
 

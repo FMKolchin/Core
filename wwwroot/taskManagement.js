@@ -1,10 +1,15 @@
 // const uri = 'C:\\Users\\Dell Vostro\\Documents\\לימודים\\שנה ב\'\\Core\\4\\Data\\TODOlist.json';
 const uri = "/TaskManagement";
+const token = sessionStorage.getItem('auth');
+const currentUser = sessionStorage.getItem('user');
 let tasks = [];
 
 function getTasks() {
-    fetch(uri+"/GetUser")
-        .then(response => response.json())
+    alert("in getTasks")
+    fetch(uri,{headers: {'Authorization':token}})
+        .then(response => {
+       return response.json();
+    })
         .then(data => {_displayTasks(data); })
         .catch(error => console.error('Unable to get items.', error));
 }
@@ -13,21 +18,26 @@ function addTasks() {
     const addDescriptionNameTextbox = document.getElementById('add-description');
 
     const item = {
-        Status: false,
-        Description: addDescriptionNameTextbox.value.trim(),
-        Id:tasks.length+1
+        id:(tasks.length+1).toString(),
+        description: addDescriptionNameTextbox.value.trim(),
+        status: false,
+        user:currentUser
     };
 
     fetch(uri, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token,
             },
             body: JSON.stringify(item)
         })
-        .then(response => response.json())
-        .then(() => {
+       .then(res=>res.text())
+        // .then(response => {alert(response.body.toString());return response.json()})
+        .then((res) => {
+            alert("in addTasks");
+            alert(res);
             getTasks();
             addDescriptionNameTextbox.value = '';
         })
@@ -36,15 +46,15 @@ function addTasks() {
 
 function deleteTasks(id) {
     fetch(`${uri}/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {'Authorization': token,}
         })
         .then(() => getTasks())
         .catch(error => console.error('Unable to delete item.', error));
 }
 
 function displayEditForm(id) {
-    const item = tasks.find(item => item.id === id);
-
+    const item = tasks.find(i => i.id === id.toString());
     document.getElementById('edit-description').value = item.description;
     document.getElementById('edit-id').value = item.id;
     document.getElementById('edit-status').checked = item.status;
@@ -54,7 +64,7 @@ function displayEditForm(id) {
 function updateTask() {
     const itemId = document.getElementById('edit-id').value;
     const item = {
-        Id: parseInt(itemId, 10),
+        Id: itemId,
         Status: document.getElementById('edit-status').checked,
         Description: document.getElementById('edit-description').value.trim()
     };
@@ -62,6 +72,7 @@ function updateTask() {
     fetch(`${uri}/${itemId}`, {
             method: 'PUT',
             headers: {
+                'Authorization': token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -132,4 +143,6 @@ function _displayTasks(data) {
     
    
 }
+
+getTasks();
 

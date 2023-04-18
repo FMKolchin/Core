@@ -2,6 +2,7 @@ using System.Text.Json;
 using _4.Interfaces;
 using _4.Models;
 
+
 namespace _4.Services;
 
 public class TaskService : ITaskService
@@ -42,6 +43,7 @@ public class TaskService : ITaskService
     }
     public TaskTODO Post(TaskTODO task)
     {
+        System.Console.WriteLine("service"+task);
         task.Id = Tasks.Max(t => t.Id) + 1;
         Tasks.Add(task);
         saveList(Tasks);
@@ -63,9 +65,10 @@ public class TaskService : ITaskService
         }
         return false;
     }
-    public bool Delete(string id)
+    public bool Delete(string id,string userId)
     {
-        TaskTODO? task = Tasks.FirstOrDefault(t => t.Id == id);
+        List<TaskTODO> tasks = Tasks.Where(t=>t.User==userId).ToList();
+        TaskTODO? task = tasks.FirstOrDefault(t => t.Id == id);
         if (task == null)
         {
             return false;
@@ -87,6 +90,7 @@ public class TaskService : ITaskService
     // }
     private void saveList(List<TaskTODO> list)
     {
+        System.Console.WriteLine("save"+list.ToString());
         File.WriteAllText(filePath, JsonSerializer.Serialize(Tasks));
     }
 

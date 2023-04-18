@@ -10,7 +10,7 @@ namespace _4.Interfaces {
         public List<TaskTODO> Get(string token);
         public TaskTODO Post(TaskTODO task);
         public bool Put(string id, TaskTODO updateTask);
-        public bool Delete(string id);
+        public bool Delete(string id,string userId);
 
     }
 

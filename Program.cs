@@ -17,8 +17,8 @@ builder.Services.AddAuthentication(options =>
                 });
 builder.Services.AddAuthorization(cfg =>
                 {
-                    cfg.AddPolicy("Admin", policy => policy.RequireClaim("Classification", "Admin"));
-                    cfg.AddPolicy("Agent", policy => policy.RequireClaim("Classification","Agent","Admin"));
+                    cfg.AddPolicy("Admin", policy => policy.RequireClaim("Classification", "admin"));
+                    cfg.AddPolicy("Agent", policy => policy.RequireClaim("Classification","agent","admin"));
                     // cfg.AddPolicy("ClearanceLevel1", policy => policy.RequireClaim("ClearanceLevel", "1", "2"));
                     // cfg.AddPolicy("ClearanceLevel2", policy => policy.RequireClaim("ClearanceLevel", "2"));
                 });

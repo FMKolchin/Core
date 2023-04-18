@@ -1,7 +1,1 @@
-[
-    {"Id":"1","UserName":"FM","Password":"fM&!","Classification":"Admin"},
-    {"Id":"2","UserName":"ST","Password":"C7867&67","Classification":"Agent"},
-    {"Id":"3","UserName":"Nechama","Password":"NAMCHjky7","Classification":"Agent"},
-    {"Id":"4","UserName":"Boaz","Password":"R&880","Classification":"Agent"},
-    {"Id":"5","UserName":"Chaim","Password":"CH789","Classification":"Agent"}
-]
+[{"Id":"1","UserName":"FM","Password":"fM\u0026!","Classification":"admin"},{"Id":"2","UserName":"ST","Password":"st","Classification":"agent"},{"Id":"3","UserName":"Nechama","Password":"NAMCHjky7","Classification":"agent"},{"Id":"4","UserName":"Boaz","Password":"bz","Classification":"agent"},{"Id":"6","UserName":"Faiga Miriam","Password":"dsfa","Classification":"agent"},{"Id":"7","UserName":"Chana","Password":"d a","Classification":"admin"},{"Id":"8","UserName":"Chana","Password":"3","Classification":"agent"},{"Id":"9","UserName":"Faiga Miriam","Password":"1","Classification":"agent"}]

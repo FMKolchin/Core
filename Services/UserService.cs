@@ -44,7 +44,7 @@ public class UserService : IUserService
     }
     public User Post(User user)
     {
-        user.Id = Users.Max(t => t.Id) + 1;
+        user.Id = (Int32.Parse(Users.Max(t => t.Id)!) + 1).ToString();
         Users.Add(user);
         saveList(Users);
         return user;
@@ -60,6 +60,7 @@ public class UserService : IUserService
         {
             user.UserName = updateUser.UserName;
             user.Password = updateUser.Password;
+            user.Classification = updateUser.Classification;
             saveList(Users);
             return true;
         }
