@@ -44,7 +44,11 @@ public class UserService : IUserService
     }
     public User Post(User user)
     {
-        user.Id = (Int32.Parse(Users.Max(t => t.Id)!) + 1).ToString();
+        var list = Users.Select(t=>Int32.Parse(t.Id!));
+        System.Console.WriteLine(list.Max());
+        System.Console.WriteLine(list);
+        user.Id = (list.Max() + 1).ToString();
+        System.Console.WriteLine(user.Id);
         Users.Add(user);
         saveList(Users);
         return user;

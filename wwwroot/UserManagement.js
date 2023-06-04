@@ -2,11 +2,24 @@
 const uri = "/Users";
 const token = sessionStorage.getItem('auth');
 const user = parseJwt(token.split(' ')[1]);
+const btnTask = document.getElementById("to-task");
+if(user.Classification === "agent")
+    btnTask.innerHTML = "לניהול המשימות";
+else
+    btnTask.innerHTML = "לאזור האישי";
+
 //const currentUser = sessionStorage.getItem('user');
 let users = [];
 
 function getUsers() {
-    fetch(uri,{headers: {'Authorization':token}})
+    let localUrl;
+    if(user.Classification=="agent"){
+        localUrl = "/GetUser";
+    }
+    else{
+        localUrl = uri;
+    }
+    fetch(localUrl,{headers: {'Authorization':token}})
         .then(response => {
        return response.json();
     })
@@ -73,7 +86,7 @@ function updateUser() {
         username: document.getElementById('edit-username').value.trim(),
         classification:document.getElementById('edit-classification').value
     };
-    alert(`${item.Id},${item.username},${item.classification}`);
+    // alert(`${item.Id},${item.username},${item.classification}`);
     fetch(`${uri}/${itemId}`, {
             method: 'PUT',
             headers: {

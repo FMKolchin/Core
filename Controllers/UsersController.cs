@@ -36,11 +36,7 @@ public class UsersController : ControllerBase
             };
 
             var token = TokenService.GetToken(claims);
-            return new OkObjectResult(
-                new {token=TokenService.WriteToken(token),
-                user = authUser.Id,
-                classification = authUser.Classification}
-                );
+            return new OkObjectResult(TokenService.WriteToken(token));
         }
 
 
@@ -56,6 +52,7 @@ public class UsersController : ControllerBase
     [Authorize(Policy = "Agent")]
     public ActionResult<User> GetUser()
     {
+       
         string? token = HttpContext.Request.Headers["Authorization"]; 
         string id = TokenService.DecodeToken(token!);
         var user = userService.Get(id);

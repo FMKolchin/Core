@@ -38,13 +38,13 @@ public class TaskService : ITaskService
     {
          string id = TokenService.DecodeToken(token);
         List<TaskTODO> filteredTasks = Tasks.Where(t=> t.User == id).ToList();
-        //TaskTODO? task = Tasks.FirstOrDefault(t => t.Id == id);
         return filteredTasks;
     }
     public TaskTODO Post(TaskTODO task)
     {
         System.Console.WriteLine("service"+task);
-        task.Id = Tasks.Max(t => t.Id) + 1;
+        var temp = Tasks.Select(t=>Int32.Parse(t.Id!));
+        task.Id = (temp.Max() + 1).ToString();
         Tasks.Add(task);
         saveList(Tasks);
         return task;

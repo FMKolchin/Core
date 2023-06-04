@@ -1,11 +1,16 @@
 // const uri = 'C:\\Users\\Dell Vostro\\Documents\\לימודים\\שנה ב\'\\Core\\4\\Data\\TODOlist.json';
 const uri = "/TaskManagement";
 const token = sessionStorage.getItem('auth');
-const currentUser = sessionStorage.getItem('user');
+const currentUser = parseJwt(token.split(' ')[1]);
+const btnTask = document.getElementById("to-user");
+if(currentUser.Classification === "admin")
+    btnTask.innerHTML = "לניהול המשתמשים";
+else
+    btnTask.innerHTML = "לאזור האישי";
 let tasks = [];
 
+
 function getTasks() {
-    alert("in getTasks")
     fetch(uri,{headers: {'Authorization':token}})
         .then(response => {
        return response.json();
@@ -21,7 +26,7 @@ function addTasks() {
         id:(tasks.length+1).toString(),
         description: addDescriptionNameTextbox.value.trim(),
         status: false,
-        user:currentUser
+        user:currentUser.Id
     };
 
     fetch(uri, {
@@ -36,8 +41,6 @@ function addTasks() {
        .then(res=>res.text())
         // .then(response => {alert(response.body.toString());return response.json()})
         .then((res) => {
-            alert("in addTasks");
-            alert(res);
             getTasks();
             addDescriptionNameTextbox.value = '';
         })
@@ -145,4 +148,14 @@ function _displayTasks(data) {
 }
 
 getTasks();
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
 

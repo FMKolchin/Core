@@ -17,7 +17,7 @@ public class TaskManagementController : ControllerBase
     }
 
     [HttpGet]
-   // [Authorize(Policy = "Admin")]
+   [Authorize(Policy = "Agent")]
     public ActionResult<List<TaskTODO>> Get()
     {
         System.Console.WriteLine("in get!!");
