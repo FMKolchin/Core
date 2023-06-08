@@ -5,29 +5,16 @@ using _4.Models;
 
 namespace _4.Services;
 
-public class TaskService : ITaskService
+public class TaskSQLService : ITaskService
 {
     List<TaskTODO>  Tasks { get; } = new List<TaskTODO>();
 
-    private string filePath;
-    private IWebHostEnvironment webHost;
-    public TaskService(IWebHostEnvironment webHost)
-    {
-        this.webHost = webHost;
-        this.filePath = Path.Combine(webHost.ContentRootPath, "Data", "taskList.json");
 
-        using (var jsonFile = File.OpenText(this.filePath))
-        {
-            List<TaskTODO>? temp = JsonSerializer.Deserialize<List<TaskTODO>>(jsonFile.ReadToEnd(),
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-            if (temp != null)
-            {
-                this.Tasks = temp;
-            }
-        }
+    private Context context = new Context();
+    public TaskSQLService()
+    {
+         Tasks = this.context.TaskTODOs.ToList();
+        
     }
     public List<TaskTODO> Get()
     {
@@ -80,8 +67,12 @@ public class TaskService : ITaskService
   
     private void saveList(List<TaskTODO> list)
     {
-        System.Console.WriteLine("save"+list.ToString());
-        File.WriteAllText(filePath, JsonSerializer.Serialize(Tasks));
+        using (var ctx = this.context)
+        {
+            ctx.TaskTODOs.RemoveRange(ctx.TaskTODOs.ToList());
+            ctx.TaskTODOs.AddRange(list);
+            ctx.SaveChanges();
+        }
     }
 
 }

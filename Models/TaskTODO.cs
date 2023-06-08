@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace _4.Models;
 
 public class TaskTODO
@@ -8,6 +10,7 @@ public class TaskTODO
 
     public bool Status { get; set; }
 
+    [ForeignKey("User")]
     public string? User {get;set;}
 
 }
