@@ -31,7 +31,7 @@ public class TaskManagementController : ControllerBase
    // [Authorize(Policy = "Agent")]
     public ActionResult<TaskTODO> Get(string id)
     {
-               string? token = HttpContext.Request.Headers["Authorization"]; 
+        string? token = HttpContext.Request.Headers["Authorization"]; 
         var tasks = taskService.Get(token!);
         var task = tasks.FirstOrDefault(t=>t.Id == id);
         if (task == null)
@@ -60,7 +60,6 @@ public class TaskManagementController : ControllerBase
        
     }
     [HttpDelete("{id}")]
-     //[Authorize(Policy = "Agent")]
     public ActionResult Delete(string id){
          string userId = TokenService.DecodeToken(HttpContext.Request.Headers["Authorization"]!);
         if(! taskService.Delete(id,userId)){
